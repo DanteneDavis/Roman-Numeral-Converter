@@ -1,0 +1,74 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roman Numeral Converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <label for="number">Enter Number: </label>
+  <input type="number" id="number">
+  <button id="convert-btn">Convert</button>
+  <div id="output"></div>
+
+  <script>
+    document.getElementById('convert-btn').addEventListener('click', function() {
+      const inputNumber = parseInt(document.getElementById('number').value);
+
+      if (isNaN(inputNumber)) {
+        document.getElementById('output').textContent = 'Please enter a valid number';
+        return;
+      }
+
+      if (inputNumber < 1) {
+        document.getElementById('output').textContent = 'Please enter a number greater than or equal to 1';
+        return;
+      }
+
+      if (inputNumber >= 4000) {
+        document.getElementById('output').textContent = 'Please enter a number less than or equal to 3999';
+        return;
+      }
+
+      document.getElementById('output').textContent = convertToRoman(inputNumber);
+    });
+
+    function convertToRoman(num) {
+      const romanNumerals = [
+        { value: 1000, numeral: 'M' },
+        { value: 900, numeral: 'CM' },
+        { value: 500, numeral: 'D' },
+        { value: 400, numeral: 'CD' },
+        { value: 100, numeral: 'C' },
+        { value: 90, numeral: 'XC' },
+        { value: 50, numeral: 'L' },
+        { value: 40, numeral: 'XL' },
+        { value: 10, numeral: 'X' },
+        { value: 9, numeral: 'IX' },
+        { value: 5, numeral: 'V' },
+        { value: 4, numeral: 'IV' },
+        { value: 1, numeral: 'I' }
+      ];
+
+      let result = '';
+
+      for (let i = 0; i < romanNumerals.length; i++) {
+        while (num >= romanNumerals[i].value) {
+          result += romanNumerals[i].numeral;
+          num -= romanNumerals[i].value;
+        }
+      }
+
+      return result;
+    }
+  </script>
+
+</body>
+</html>
+
+
+
